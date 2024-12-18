@@ -1,5 +1,4 @@
-![LoggieConsole.PNG](assets/LoggieConsole.PNG)
-
+![LoggieConsole.PNG](assets/loggie-console-logo.png)
 # Loggie Console
 An interactive console for Godot, built upon [Loggie](https://github.com/Shiva-Shadowsong/loggie) 
 
@@ -10,3 +9,6 @@ An interactive console for Godot, built upon [Loggie](https://github.com/Shiva-S
 3. Do one of the following:
    - Create an autoload of the Console scene `res://addons/loggie-console/scenes/console.tscn`.
    - Instantiate the `res://addons/loggie-console/scenes/console.tscn` scene where appropriate.
+
+## Example
+![LoggieConsole.PNG](assets/LoggieConsole.PNG)
