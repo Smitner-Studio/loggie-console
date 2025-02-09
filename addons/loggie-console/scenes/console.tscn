@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://f7mt8kavlkap" path="res://addons/loggie-console/theme.tres" id="4_2cgp1"]
 [ext_resource type="Texture2D" uid="uid://bks24limepbma" path="res://addons/loggie-console/assets/trash.svg" id="4_ptot7"]
 
-[node name="LoggieConsoleWindow" type="Window" node_paths=PackedStringArray("buffer", "output_level", "clear", "scroll_follow")]
+[node name="LoggieConsoleWindow" type="Window" node_paths=PackedStringArray("buffer", "output_level", "clear", "scroll_follow", "max_messages_input")]
 title = "Loggie Console"
 initial_position = 1
 size = Vector2i(1000, 500)
@@ -17,6 +17,7 @@ buffer = NodePath("Panel/MarginContainer/VBoxContainer/Buffer")
 output_level = NodePath("Panel/MarginContainer/VBoxContainer/Controls/OutputLevel")
 clear = NodePath("Panel/MarginContainer/VBoxContainer/Controls/Clear")
 scroll_follow = NodePath("Panel/MarginContainer/VBoxContainer/Controls/ScrollFollow")
+max_messages_input = NodePath("Panel/MarginContainer/VBoxContainer/Controls/HBoxContainer/LineEdit")
 collapse_texture = ExtResource("3_i3phv")
 uncollapse_texture = ExtResource("2_7iokb")
 
@@ -56,6 +57,20 @@ layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 text = "Follow"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Controls"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="Panel/MarginContainer/VBoxContainer/Controls/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Controls/HBoxContainer"]
+layout_mode = 2
+text = "Max Lines"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/Controls/HBoxContainer"]
+layout_mode = 2
+text = "100"
 
 [node name="Buffer" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

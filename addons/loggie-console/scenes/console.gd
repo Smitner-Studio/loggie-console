@@ -8,8 +8,12 @@ class_name LoggieConsole extends Window
 
 @export var scroll_follow: Button
 
+@export var max_messages_input: LineEdit
+var messages: Array[String] = []
+const MAX_MESSAGES_DEFAULT : int = 500
+
 @export_category("Collapse")
-@export var collapse_texture: Texture2D
+@export var collapse_texture: Texture2D 
 @export var uncollapse_texture: Texture2D
 var collapsed := false
 
@@ -56,9 +60,24 @@ func _ready() -> void:
 	)
 	buffer.scroll_following = scroll_follow.button_pressed
 
-func _on_log_attempted(msg : LoggieMsg, preprocessed_content : String, result : LoggieEnums.LogAttemptResult):
+	max_messages_input.text_changed.connect(_on_max_messages_changed)
+
+func _on_log_attempted(msg: LoggieMsg, preprocessed_content: String, result: LoggieEnums.LogAttemptResult):
 	if result == LoggieEnums.LogAttemptResult.SUCCESS:
-		buffer.text += preprocessed_content + "\n"
+		messages.append(preprocessed_content)
+
+		var max_messages: int = int(max_messages_input.text) if max_messages_input.text.is_valid_int() else MAX_MESSAGES_DEFAULT
+
+		if messages.size() > max_messages:
+			messages.pop_front()
+
+		buffer.text = "\n".join(messages)
+
+func _on_max_messages_changed(_new_text: String) -> void:
+	var max_messages: int = int(max_messages_input.text) if max_messages_input.text.is_valid_int() else MAX_MESSAGES_DEFAULT
+	while messages.size() > max_messages:
+		messages.pop_front()
+	buffer.text = "\n".join(messages)
 
 func _expand_console() -> void:
 	collapsed = false
