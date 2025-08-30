@@ -10,5 +10,9 @@ An interactive console for Godot, built upon [Loggie](https://github.com/Shiva-S
    - Create an autoload of the Console scene `res://addons/loggie-console/scenes/console.tscn`.
    - Instantiate the `res://addons/loggie-console/scenes/console.tscn` scene where appropriate.
 
+## Warning
+
+> Half-cooked repo. Documentation to follow soon :tm: 
+
 ## Example
-![LoggieConsole.PNG](assets/LoggieConsole.PNG)
+![capture.PNG](assets/capture.PNG)
