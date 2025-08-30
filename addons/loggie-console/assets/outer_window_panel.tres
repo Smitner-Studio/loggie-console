@@ -1,0 +1,21 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cfafk3ybc15uo"]
+
+[ext_resource type="Texture2D" uid="uid://cs676riq457do" path="res://sprites/ui/NinePatchWindowBrown.png" id="1_8qfda"]
+
+[resource]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+texture = ExtResource("1_8qfda")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+expand_margin_left = 4.0
+expand_margin_top = 24.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 36, 36)

@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw8k3yap2n4qv"]
+
+[ext_resource type="Theme" uid="uid://c1lnnysnspc6v" path="res://addons/loggie-console/theme_compact.tres" id="1_08jdj"]
+[ext_resource type="Script" uid="uid://giuyu6vhhgam" path="res://addons/loggie-console/scripts/components/settings_panel.gd" id="1_settings_panel"]
+[ext_resource type="StyleBox" uid="uid://b7k8yo7jfhpue" path="res://addons/loggie-console/assets/inner_panel.tres" id="2_08jdj"]
+
+[node name="SettingsPanel" type="AcceptDialog" node_paths=PackedStringArray("_text_size_slider", "_text_size_value_label", "_reset_button", "_alignment_option")]
+title = "Console Settings"
+initial_position = 1
+size = Vector2i(320, 210)
+transient = false
+sharp_corners = true
+theme = ExtResource("1_08jdj")
+theme_override_styles/panel = ExtResource("2_08jdj")
+ok_button_text = " Apply Changes "
+script = ExtResource("1_settings_panel")
+_text_size_slider = NodePath("VBoxContainer/TextSizeContainer/TextSizeSlider")
+_text_size_value_label = NodePath("VBoxContainer/TextSizeContainer/TextSizeValueLabel")
+_reset_button = NodePath("VBoxContainer/ResetContainer/ResetButton")
+_alignment_option = NodePath("VBoxContainer/AlignmentContainer/AlignmentOption")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextSizeContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextSizeLabel" type="Label" parent="VBoxContainer/TextSizeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Text Size:"
+vertical_alignment = 1
+
+[node name="TextSizeSlider" type="HSlider" parent="VBoxContainer/TextSizeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 1.0
+tick_count = 16
+ticks_on_borders = true
+
+[node name="TextSizeValueLabel" type="Label" parent="VBoxContainer/TextSizeContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "1.0x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AlignmentContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AlignmentLabel" type="Label" parent="VBoxContainer/AlignmentContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Restore Button:"
+vertical_alignment = 1
+
+[node name="AlignmentOption" type="OptionButton" parent="VBoxContainer/AlignmentContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 1
+item_count = 4
+popup/item_0/text = "Top Left"
+popup/item_0/id = 0
+popup/item_1/text = "Top Right"
+popup/item_1/id = 1
+popup/item_2/text = "Bottom Left"
+popup/item_2/id = 2
+popup/item_3/text = "Bottom Right"
+popup/item_3/id = 3
+
+[node name="ResetContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="VBoxContainer/ResetContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset to Default"

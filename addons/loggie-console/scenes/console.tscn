@@ -1,68 +1,169 @@
-[gd_scene load_steps=6 format=3 uid="uid://db1g5xq45q2mb"]
+[gd_scene load_steps=17 format=3 uid="uid://d0sxs0is80byx"]
 
-[ext_resource type="Script" path="res://addons/loggie-console/scenes/console.gd" id="1_yp485"]
-[ext_resource type="Texture2D" uid="uid://dk64lxicgcyqq" path="res://addons/loggie-console/assets/chevron-down.svg" id="2_7iokb"]
-[ext_resource type="Texture2D" uid="uid://cke7ggn034rrn" path="res://addons/loggie-console/assets/chevron-up.svg" id="3_i3phv"]
-[ext_resource type="Theme" uid="uid://f7mt8kavlkap" path="res://addons/loggie-console/theme.tres" id="4_2cgp1"]
-[ext_resource type="Texture2D" uid="uid://bks24limepbma" path="res://addons/loggie-console/assets/trash.svg" id="4_ptot7"]
+[ext_resource type="Script" uid="uid://64r2in67soep" path="res://addons/loggie-console/scenes/console.gd" id="1_yp485"]
+[ext_resource type="PackedScene" uid="uid://dgok5l3frx53m" path="res://addons/loggie-console/scenes/panel_domain_selector.tscn" id="2_domain"]
+[ext_resource type="StyleBox" uid="uid://b7k8yo7jfhpue" path="res://addons/loggie-console/assets/inner_panel.tres" id="3_fxnpl"]
+[ext_resource type="Script" uid="uid://wah8efffydnu" path="res://addons/loggie-console/scripts/components/log_buffer.gd" id="3_logbuffer"]
+[ext_resource type="Theme" uid="uid://c1lnnysnspc6v" path="res://addons/loggie-console/theme_compact.tres" id="4_2cgp1"]
+[ext_resource type="Script" uid="uid://d3l2tmf5gym1d" path="res://addons/loggie-console/scripts/components/log_level_filter.gd" id="4_loglevel"]
+[ext_resource type="Script" uid="uid://c4f6c3gs8venj" path="res://addons/loggie-console/scripts/components/console_controls.gd" id="5_controls"]
+[ext_resource type="Script" uid="uid://whrim6lbiako" path="res://addons/loggie-console/scripts/components/status_display.gd" id="6_status"]
+[ext_resource type="Texture2D" uid="uid://ivppb5cqrsak" path="res://addons/loggie-console/assets/NinePatchWindow-InnerRecess.png" id="7_56hvo"]
+[ext_resource type="PackedScene" uid="uid://bw8k3yap2n4qv" path="res://addons/loggie-console/scenes/settings_panel.tscn" id="7_settings_panel"]
 
-[node name="LoggieConsoleWindow" type="Window" node_paths=PackedStringArray("buffer", "output_level", "clear", "scroll_follow")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20rq3"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("7_56hvo")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 36, 36)
+modulate_color = Color(0.60933, 0.60933, 0.60933, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b4nxe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l8fiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ibivl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_njst7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yrjc"]
+
+[node name="LoggieConsoleWindow" type="Window" node_paths=PackedStringArray("buffer", "output_level", "domain_filter", "controls", "status_display")]
 title = "Loggie Console"
 initial_position = 1
-size = Vector2i(1000, 500)
+size = Vector2i(889, 905)
+wrap_controls = true
+sharp_corners = true
+min_size = Vector2i(600, 300)
 keep_title_visible = true
 theme = ExtResource("4_2cgp1")
 script = ExtResource("1_yp485")
-buffer = NodePath("Panel/MarginContainer/VBoxContainer/Buffer")
-output_level = NodePath("Panel/MarginContainer/VBoxContainer/Controls/OutputLevel")
-clear = NodePath("Panel/MarginContainer/VBoxContainer/Controls/Clear")
-scroll_follow = NodePath("Panel/MarginContainer/VBoxContainer/Controls/ScrollFollow")
-collapse_texture = ExtResource("3_i3phv")
-uncollapse_texture = ExtResource("2_7iokb")
+buffer = NodePath("PanelContainer/VBoxContainer/PanelContainer/Buffer")
+output_level = NodePath("PanelContainer/VBoxContainer/Controls/OutputLevel")
+domain_filter = NodePath("PanelContainer/VBoxContainer/Controls/DomainFilter")
+controls = NodePath("PanelContainer/VBoxContainer/Controls")
+status_display = NodePath("PanelContainer/VBoxContainer/StatusContainer/HBoxContainer/StatusLabel")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_fxnpl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Controls" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="PanelContainer/VBoxContainer" node_paths=PackedStringArray("clear_button", "scroll_follow_checkbox", "search_input", "stack_filter_checkbox")]
 layout_mode = 2
+script = ExtResource("5_controls")
+clear_button = NodePath("Clear")
+scroll_follow_checkbox = NodePath("ScrollFollow")
+search_input = NodePath("../StatusContainer/HBoxContainer/SearchInput")
+stack_filter_checkbox = NodePath("StackFilter")
 
-[node name="OutputLevel" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="OutputLevel" type="OptionButton" parent="PanelContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(60, 20)
 layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Filter by log level"
+selected = 3
+item_count = 5
+popup/item_0/text = "ERROR"
+popup/item_0/id = 0
+popup/item_1/text = "WARN"
+popup/item_1/id = 1
+popup/item_2/text = "NOTICE"
+popup/item_2/id = 2
+popup/item_3/text = "INFO"
+popup/item_3/id = 3
+popup/item_4/text = "DEBUG"
+popup/item_4/id = 4
+script = ExtResource("4_loglevel")
 
-[node name="Clear" type="Button" parent="Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="ScrollFollow" type="CheckBox" parent="PanelContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
-text = "Clear"
-icon = ExtResource("4_ptot7")
-
-[node name="ScrollFollow" type="CheckBox" parent="Panel/MarginContainer/VBoxContainer/Controls"]
-layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 0
+tooltip_text = "Auto-scroll to newest messages"
 button_pressed = true
 text = "Follow"
 
-[node name="Buffer" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="StackFilter" type="CheckBox" parent="PanelContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Show only messages with stack traces"
+text = "Stack Only"
+
+[node name="Clear" type="Button" parent="PanelContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(45, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Clear console buffer"
+text = "Clear"
+
+[node name="Settings" type="Button" parent="PanelContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Console settings"
+text = "Settings"
+
+[node name="DomainFilter" parent="PanelContainer/VBoxContainer/Controls" instance=ExtResource("2_domain")]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_20rq3")
+
+[node name="Buffer" type="RichTextLabel" parent="PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxEmpty_b4nxe")
+theme_override_styles/background = SubResource("StyleBoxEmpty_l8fiu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ibivl")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_njst7")
 bbcode_enabled = true
 scroll_following = true
 context_menu_enabled = true
 selection_enabled = true
+script = ExtResource("3_logbuffer")
+
+[node name="StatusContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0yrjc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/StatusContainer"]
+layout_mode = 2
+
+[node name="SearchInput" type="LineEdit" parent="PanelContainer/VBoxContainer/StatusContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 2
+placeholder_text = "Filter messages..."
+clear_button_enabled = true
+
+[node name="StatusLabel" type="Label" parent="PanelContainer/VBoxContainer/StatusContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 12
+text = "Ready"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("6_status")
+
+[node name="SettingsPanel" parent="." instance=ExtResource("7_settings_panel")]

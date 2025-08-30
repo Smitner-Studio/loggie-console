@@ -1,0 +1,141 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c1lnnysnspc6v"]
+
+[ext_resource type="StyleBox" uid="uid://dolgdjpxlvt8f" path="res://addons/loggie-console/assets/inner_panel_recess.tres" id="1_nubd1"]
+[ext_resource type="Texture2D" uid="uid://bhps6csrl6lef" path="res://addons/loggie-console/assets/close.png" id="1_rapoa"]
+[ext_resource type="StyleBox" uid="uid://bpkqcbx15ejak" path="res://addons/loggie-console/assets/outer_panel.tres" id="2_rapoa"]
+[ext_resource type="StyleBox" uid="uid://cfafk3ybc15uo" path="res://addons/loggie-console/assets/outer_window_panel.tres" id="3_f200k"]
+[ext_resource type="StyleBox" uid="uid://b7k8yo7jfhpue" path="res://addons/loggie-console/assets/inner_panel.tres" id="3_p21dw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+content_margin_left = 3.0
+content_margin_top = 1.0
+content_margin_right = 3.0
+content_margin_bottom = 1.0
+bg_color = Color(0.25, 0.25, 0.25, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox_normal"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.15, 0.15, 0.15, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_richtextlabel"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.1, 0.1, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_f200k"]
+font_names = PackedStringArray("Monospace")
+font_weight = 800
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[resource]
+Button/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+Button/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+Button/font_sizes/font_size = 11
+Button/styles/disabled = SubResource("StyleBoxFlat_button_normal")
+Button/styles/hover = ExtResource("2_rapoa")
+Button/styles/normal = ExtResource("2_rapoa")
+Button/styles/pressed = ExtResource("1_nubd1")
+CheckBox/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+CheckBox/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+CheckBox/colors/font_hover_color = Color(1, 1, 1, 1)
+CheckBox/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+CheckBox/font_sizes/font_size = 11
+CheckBox/styles/disabled = SubResource("StyleBoxFlat_checkbox_normal")
+CheckBox/styles/hover_pressed = ExtResource("2_rapoa")
+CheckBox/styles/normal = ExtResource("2_rapoa")
+CheckBox/styles/pressed = ExtResource("2_rapoa")
+HBoxContainer/constants/separation = 2
+LineEdit/colors/caret_color = Color(1, 1, 1, 1)
+LineEdit/colors/clear_button_color = Color(0, 0, 0, 1)
+LineEdit/colors/clear_button_color_pressed = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(1, 1, 1, 1)
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0.447904, 0.509153, 0.407339, 1)
+LineEdit/colors/font_selected_color = Color(0.792157, 0.901961, 0.85098, 1)
+LineEdit/colors/font_uneditable_color = Color(0, 0, 0, 1)
+LineEdit/colors/selection_color = Color(0.188235, 0.219608, 0.262745, 1)
+LineEdit/constants/caret_width = 0
+LineEdit/constants/minimum_character_width = 0
+LineEdit/constants/outline_size = 0
+LineEdit/font_sizes/font_size = 12
+LineEdit/fonts/font = null
+LineEdit/icons/clear = null
+LineEdit/styles/focus = ExtResource("1_nubd1")
+LineEdit/styles/normal = ExtResource("1_nubd1")
+LineEdit/styles/read_only = ExtResource("3_p21dw")
+MarginContainer/constants/margin_bottom = 1
+MarginContainer/constants/margin_left = 1
+MarginContainer/constants/margin_right = 1
+MarginContainer/constants/margin_top = 1
+MenuButton/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+MenuButton/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+MenuButton/colors/font_hover_color = Color(1, 1, 1, 1)
+MenuButton/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+MenuButton/font_sizes/font_size = 11
+MenuButton/styles/hover = ExtResource("1_nubd1")
+MenuButton/styles/normal = ExtResource("2_rapoa")
+MenuButton/styles/pressed = ExtResource("2_rapoa")
+OptionButton/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+OptionButton/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+OptionButton/colors/font_hover_color = Color(1, 1, 1, 1)
+OptionButton/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+OptionButton/font_sizes/font_size = 11
+OptionButton/styles/disabled = ExtResource("3_f200k")
+OptionButton/styles/hover = ExtResource("1_nubd1")
+OptionButton/styles/normal = ExtResource("1_nubd1")
+OptionButton/styles/pressed = ExtResource("1_nubd1")
+Panel/styles/panel = SubResource("StyleBoxFlat_panel")
+PopupMenu/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+PopupMenu/colors/font_hover_color = Color(1, 1, 1, 1)
+PopupMenu/colors/font_separator_color = Color(0.5, 0.5, 0.5, 1)
+PopupMenu/font_sizes/font_size = 11
+PopupMenu/styles/hover = ExtResource("1_nubd1")
+PopupMenu/styles/normal = ExtResource("1_nubd1")
+PopupMenu/styles/panel = ExtResource("2_rapoa")
+PopupPanel/styles/panel = ExtResource("2_rapoa")
+RichTextLabel/colors/default_color = Color(0.9, 0.9, 0.9, 1)
+RichTextLabel/colors/selection_color = Color(0.4, 0.6, 0.8, 0.4)
+RichTextLabel/font_sizes/bold_font_size = 10
+RichTextLabel/font_sizes/bold_italics_font_size = 10
+RichTextLabel/font_sizes/italics_font_size = 10
+RichTextLabel/font_sizes/mono_font_size = 9
+RichTextLabel/font_sizes/normal_font_size = 10
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_richtextlabel")
+VBoxContainer/constants/separation = 2
+Window/colors/title_color = Color(0.175119, 0.187776, 0.176406, 1)
+Window/constants/close_h_offset = 18
+Window/constants/close_v_offset = 20
+Window/constants/title_height = 22
+Window/font_sizes/title_font_size = 16
+Window/fonts/title_font = SubResource("SystemFont_f200k")
+Window/icons/close = ExtResource("1_rapoa")
+Window/icons/close_pressed = ExtResource("1_rapoa")
+Window/styles/embedded_border = ExtResource("3_f200k")
+Window/styles/embedded_unfocused_border = ExtResource("3_f200k")
