@@ -1,4 +1,3 @@
-@tool
 class_name RestoreButton extends CanvasLayer
 
 ## Floating restore button component for minimized LoggieConsole

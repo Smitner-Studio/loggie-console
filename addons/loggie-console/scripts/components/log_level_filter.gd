@@ -1,4 +1,3 @@
-@tool
 class_name LogLevelFilter extends OptionButton
 
 ## Standalone log level filter component

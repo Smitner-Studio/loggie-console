@@ -13,11 +13,11 @@ config_version=5
 config/name="Loggie Console"
 run/main_scene="uid://cxj67ur7mly5o"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cpeedtbwgi4eu"
 
 [autoload]
 
-Console="*res://addons/loggie-console/scenes/console.tscn"
+Console="res://addons/loggie-console/scenes/console.tscn"
 Loggie="*res://addons/loggie/loggie.gd"
 
 [debug]

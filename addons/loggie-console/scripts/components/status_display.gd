@@ -1,4 +1,3 @@
-@tool
 class_name StatusDisplay extends Label
 
 ## Standalone status display component for console information

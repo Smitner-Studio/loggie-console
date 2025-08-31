@@ -1,4 +1,3 @@
-@tool
 class_name ConsoleSettingsManager extends RefCounted
 
 ## Manages persistent storage of LoggieConsole settings

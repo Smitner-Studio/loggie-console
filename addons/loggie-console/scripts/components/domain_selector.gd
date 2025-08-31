@@ -1,4 +1,3 @@
-@tool
 class_name DomainSelector extends MenuButton
 
 ## Standalone domain selector component for filtering log messages by domain

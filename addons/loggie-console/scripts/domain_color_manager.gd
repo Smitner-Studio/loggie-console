@@ -1,4 +1,3 @@
-@tool
 class_name DomainColorManager extends RefCounted
 
 ## Centralized domain color management for LoggieConsole

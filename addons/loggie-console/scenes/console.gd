@@ -11,7 +11,6 @@
 ## The console automatically saves all settings when closed or minimized, and restores
 ## the exact previous state on next startup, including window position, size, filters,
 ## and discovered domains.
-@tool
 class_name LoggieConsole extends Window
 
 # Constants

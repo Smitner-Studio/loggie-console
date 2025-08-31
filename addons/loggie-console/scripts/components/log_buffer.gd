@@ -1,4 +1,3 @@
-@tool
 class_name LogBuffer extends RichTextLabel
 
 ## Enhanced message buffer with retroactive filtering capabilities

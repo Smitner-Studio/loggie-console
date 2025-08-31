@@ -1,4 +1,3 @@
-@tool  
 class_name ConsoleControls extends HBoxContainer
 
 ## Console controls toolbar component

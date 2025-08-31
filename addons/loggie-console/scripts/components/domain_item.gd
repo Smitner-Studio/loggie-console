@@ -1,4 +1,3 @@
-@tool
 class_name DomainItem extends Control
 
 ## Custom control for individual domain rows in PanelDomainSelector

@@ -1,4 +1,3 @@
-@tool
 class_name LoggieConsoleChannel extends LoggieMsgChannel
 
 ## Custom Loggie channel that feeds messages directly to the LoggieConsole

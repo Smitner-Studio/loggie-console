@@ -1,4 +1,3 @@
-@tool
 class_name LoggieConsoleSettingsPanel extends AcceptDialog
 
 ## Standalone settings panel component for LoggieConsole

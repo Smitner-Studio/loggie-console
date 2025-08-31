@@ -1,4 +1,3 @@
-@tool
 class_name LoggieConsoleConstants extends RefCounted
 
 ## Centralized constants for the LoggieConsole addon

@@ -1,4 +1,3 @@
-@tool
 class_name PanelDomainSelector extends Control
 
 ## Panel-based domain selector component for filtering log messages by domain
