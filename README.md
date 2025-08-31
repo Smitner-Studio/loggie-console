@@ -1,7 +1,7 @@
 ![LoggieConsole.PNG](assets/loggie-console-logo.png)
 # Loggie Console
 
-An interactive debug console for Godot 4.4. Built on top of [Loggie](https://github.com/Shiva-Shadowsong/loggie) with filtering, search, and multi-display support.
+An interactive debug console for Godot 4.4. Built on top of [Loggie](https://github.com/Shiva-Shadowsong/loggie) with filtering, search, and flexible display support.
 
 ## Key Features
 
