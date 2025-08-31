@@ -20,7 +20,7 @@ An interactive debug console for Godot 4.4. Built on top of [Loggie](https://git
 
 ### Installation Steps
 
-1. **Install Loggie first**: Follow the [Loggie installation guide](https://github.com/Shiva-Shadowsong/loggie/blob/main/docs/USER_GUIDE.md) to add Loggie to your project
+1. **Install Loggie first**: Follow the [Loggie Readme](https://github.com/Shiva-Shadowsong/loggie).
 2. **Download the addon**: Download the latest release from the [releases page](https://github.com/Smitner-Studio/loggie-console/releases)
 3. **Extract to your project**: Extract the `loggie-console/` folder into your Godot project's `addons/` directory
 4. **Enable the plugin**: In Godot, go to Project Settings → Plugins and enable "Loggie Console"
@@ -31,21 +31,8 @@ Once enabled, the console will be automatically added as an autoload singleton n
 
 Once installed, the console can be accessed in several ways:
 
-- **Global access**: Use `LoggieConsole` singleton from anywhere in your code
-- **Toggle visibility**: The console window can be shown/hidden as needed
-- **Scene integration**: The console automatically integrates with Loggie's logging system
-
-### Example Usage
-
-```gdscript
-# The console is automatically available as LoggieConsole
-# It will receive all log messages sent through Loggie
-
-# Example logging that will appear in the console
-Loggie.info("Game started", "GameManager")
-Loggie.warn("Low health warning", "Player") 
-Loggie.error("Failed to load save file", "SaveSystem")
-```
+- **Toggle visibility**: The console window can be shown/hidden as needed.
+- **Scene integration**: The console automatically integrates with Loggie's logging system, see the [Loggie User Guide](https://github.com/Shiva-Shadowsong/loggie/blob/main/docs/USER_GUIDE.md) for usage.
 
 ## Development
 
