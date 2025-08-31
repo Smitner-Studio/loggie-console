@@ -63,7 +63,7 @@ func set_color_manager(color_manager: DomainColorManager) -> void:
 ## Add a new log message to the buffer
 func add_message(msg: LoggieMsg, content: String, msg_type: LoggieEnums.MsgType, log_level: LoggieEnums.LogLevel) -> void:
 	# Create and store the message
-	var log_msg = LogMessage.new(msg, content, msg_type, log_level)
+	var log_msg: LogMessage = LogMessage.new(msg, content, msg_type, log_level)
 	log_msg.enhanced_content = _enhance_with_metadata(log_msg)
 	
 	_all_messages.append(log_msg)
@@ -153,7 +153,7 @@ func _message_passes_filters(msg: LogMessage, filters: FilterState) -> bool:
 	
 	# Text search
 	if not filters.text_search.is_empty():
-		var search_lower = filters.text_search.to_lower()
+		var search_lower: String = filters.text_search.to_lower()
 		if not msg.preprocessed_content.to_lower().contains(search_lower):
 			return false
 	
@@ -175,7 +175,7 @@ func _rebuild_display() -> void:
 func _enhance_with_metadata(msg: LogMessage) -> String:
 	var metadata_parts: Array[String] = []
 	
-	metadata_parts.append("[color=%s]%s [/color]" % [Color.DIM_GRAY.to_html(false), Time.get_time_string_from_unix_time(msg.timestamp)])
+	metadata_parts.append("[color=%s]%s [/color]" % [Color.DIM_GRAY.to_html(false), Time.get_time_string_from_unix_time(int(msg.timestamp))])
 	
 	if msg.msg.domain_name and not msg.msg.domain_name.is_empty():
 		var domain_color_html: String = _color_manager.get_domain_color_html(msg.msg.domain_name)
@@ -204,7 +204,7 @@ func _get_color_for_log_level(level: LoggieEnums.LogLevel) -> Color:
 func _manage_memory() -> void:
 	if _all_messages.size() > max_messages:
 		# Remove oldest messages based on cleanup percentage
-		var remove_count = int(max_messages * CLEANUP_PERCENTAGE)
+		var remove_count: int = int(max_messages * CLEANUP_PERCENTAGE)
 		_all_messages = _all_messages.slice(remove_count)
 		# Note: This will cause filtered_messages indices to be invalid, 
 		# but _reapply_filters() will be called which rebuilds it

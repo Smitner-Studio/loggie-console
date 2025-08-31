@@ -96,7 +96,7 @@ func set_domains(domains: Array[String]) -> void:
 
 ## Initialize the selector with all domains, but only enable selected ones
 ## Console domains appear normally but are unselected by default
-func set_domains_with_console_unselected(all_domains: Array[String], enabled_domains: Array[String], console_domains: Array[String]) -> void:
+func set_domains_with_console_unselected(all_domains: Array[String], enabled_domains: Array[String], _console_domains: Array[String]) -> void:
 	_all_domains = all_domains.duplicate()
 	_enabled_domains = enabled_domains.duplicate()
 	_rebuild_domain_list()
@@ -163,7 +163,7 @@ func _initialize_domains_from_loggie() -> void:
 	var loggie_domains: Array[String] = []
 	
 	# Get domains from Loggie's registered domains
-	for domain_name in Loggie.domains.keys():
+	for domain_name: String in Loggie.domains.keys():
 		if not domain_name.is_empty():
 			loggie_domains.append(domain_name)
 	
@@ -179,16 +179,16 @@ func refresh_domains_from_loggie() -> void:
 	if not Loggie:
 		return
 		
-	var current_domains = _all_domains.duplicate()
+	var _current_domains: Array[String] = _all_domains.duplicate()
 	var loggie_domains: Array[String] = []
 	
 	# Get current domains from Loggie
-	for domain_name in Loggie.domains.keys():
+	for domain_name: String in Loggie.domains.keys():
 		if not domain_name.is_empty():
 			loggie_domains.append(domain_name)
 	
 	# Add any new domains we discovered
-	var new_domains_added = false
+	var new_domains_added: bool = false
 	for domain_name in loggie_domains:
 		if not _all_domains.has(domain_name):
 			add_domain(domain_name)
@@ -233,18 +233,18 @@ func _position_panel() -> void:
 		return
 		
 	# Get trigger button global position and size
-	var button_global_pos = trigger_button.global_position
+	var button_global_pos: Vector2 = trigger_button.global_position
 	
-	var button_size = trigger_button.size
+	var button_size: Vector2 = trigger_button.size
 	await get_tree().process_frame
-	var panel_size = domain_panel.size
+	var panel_size: Vector2 = domain_panel.size
 	
 	# Get viewport rect for boundary checking
-	var viewport = get_viewport()
-	var viewport_rect = viewport.get_visible_rect()
+	var viewport: Viewport = get_viewport()
+	var viewport_rect: Rect2 = viewport.get_visible_rect()
 	
 	# Position directly below button, aligned to left edge
-	var panel_pos = Vector2i(
+	var panel_pos: Vector2i = Vector2i(
 		button_global_pos.x,
 		button_global_pos.y + button_size.y + PANEL_VERTICAL_GAP
 	)
@@ -273,7 +273,7 @@ func _rebuild_domain_list() -> void:
 	
 	# Create new domain items
 	for domain_name in _all_domains:
-		var is_enabled = _enabled_domains.has(domain_name)
+		var is_enabled: bool = _enabled_domains.has(domain_name)
 		_add_domain_item(domain_name, is_enabled)
 	
 	_update_panel_size()
@@ -289,7 +289,7 @@ func _clear_domain_items() -> void:
 		child.queue_free()
 
 func _add_domain_item(domain_name: String, is_enabled: bool) -> void:
-	var item = DomainItemScene.instantiate()
+	var item: DomainItem = DomainItemScene.instantiate()
 	
 	# Add to scene first
 	domain_list.add_child(item)
@@ -316,8 +316,8 @@ func _update_panel_size() -> void:
 		return
 		
 	# Calculate required height based on content
-	var required_height = PANEL_HEADER_HEIGHT + PANEL_SELECTION_CONTROLS_HEIGHT + (_domain_items.size() * DOMAIN_ITEM_HEIGHT) + PANEL_FOOTER_HEIGHT + PANEL_PADDING
-	var final_height = clamp(required_height, PANEL_MIN_HEIGHT, PANEL_MAX_HEIGHT)
+	var required_height: int = PANEL_HEADER_HEIGHT + PANEL_SELECTION_CONTROLS_HEIGHT + (_domain_items.size() * DOMAIN_ITEM_HEIGHT) + PANEL_FOOTER_HEIGHT + PANEL_PADDING
+	var final_height: int = clamp(required_height, PANEL_MIN_HEIGHT, PANEL_MAX_HEIGHT)
 	
 	domain_panel.size = Vector2(PANEL_WIDTH, final_height)
 
@@ -325,8 +325,8 @@ func _update_trigger_button_text() -> void:
 	if not trigger_button:
 		return
 		
-	var enabled_count = _enabled_domains.size()
-	var total_count = _all_domains.size()
+	var enabled_count: int = _enabled_domains.size()
+	var total_count: int = _all_domains.size()
 	
 	if total_count == 0:
 		trigger_button.text = "Domains: None"
@@ -338,8 +338,8 @@ func _update_trigger_button_text() -> void:
 		trigger_button.text = "Domains: None"
 		trigger_button.tooltip_text = "No domains selected"
 	elif enabled_count == 1:
-		var domain_name = _enabled_domains[0]
-		var display_name = domain_name if not domain_name.is_empty() else "(default)"
+		var domain_name: String = _enabled_domains[0]
+		var display_name: String = domain_name if not domain_name.is_empty() else "(default)"
 		trigger_button.text = "Domains: " + display_name
 		trigger_button.tooltip_text = "Selected: " + display_name
 	else:
@@ -349,8 +349,8 @@ func _update_trigger_button_text() -> void:
 func _update_domain_items_state() -> void:
 	for item in _domain_items:
 		if is_instance_valid(item):
-			var domain_name = item.get_domain_name()
-			var is_enabled = _enabled_domains.has(domain_name)
+			var domain_name: String = item.get_domain_name()
+			var is_enabled: bool = _enabled_domains.has(domain_name)
 			item.set_selected(is_enabled)
 
 func _on_domain_item_selection_changed(domain_name: String, is_selected: bool) -> void:

@@ -137,7 +137,7 @@ func _setup_domain_filter() -> void:
 	var initial_domains: Array[String] = [""]  # Always include default domain
 	
 	# Get all registered domains from Loggie
-	for domain_name in Loggie.domains.keys():
+	for domain_name: String in Loggie.domains.keys():
 		if not initial_domains.has(domain_name):
 			initial_domains.append(domain_name)
 	
@@ -192,8 +192,8 @@ func _on_stack_filter_changed(enabled: bool) -> void:
 
 func _on_buffer_filter_changed(visible_count: int, total_count: int) -> void:
 	# Update status display with current counts
-	var enabled_domains = domain_filter.get_enabled_domains()
-	var total_domains = enabled_domains.size()
+	var enabled_domains: Array[String] = domain_filter.get_enabled_domains()
+	var total_domains: int = enabled_domains.size()
 	if total_domains == 0:
 		total_domains = Loggie.domains.keys().size() + DEFAULT_DOMAIN_OFFSET
 	
@@ -267,8 +267,16 @@ func _hide_restore_button() -> void:
 ## Applies saved window properties to the console window
 ## Validates position to ensure window remains visible on current display setup
 func _apply_window_settings() -> void:
-	# Ensure window position is valid for current display configuration
-	var validated_pos = _current_settings.validate_window_position()
+	# Check if we're using embedded subwindows
+	var subwindows_embedded: bool = ProjectSettings.get_setting("display/window/subwindows/embed_subwindows", true)
+	
+	var validated_pos: Vector2i
+	if subwindows_embedded and _is_outside_viewport():
+		validated_pos = _center_window()
+	else:
+		# Use existing validation for separate windows or valid embedded positions
+		validated_pos = _current_settings.validate_window_position()
+	
 	position = validated_pos
 	
 	# Apply saved window dimensions
@@ -283,6 +291,22 @@ func _apply_window_settings() -> void:
 		hide()
 		# Defer restore button creation until scene tree is ready
 		_show_restore_button.call_deferred()
+
+## Checks if console window is outside the main viewport (for embedded subwindows)
+func _is_outside_viewport() -> bool:
+	var viewport_size: Vector2i = Vector2i(get_tree().root.get_visible_rect().size)
+	var window_rect: Rect2i = Rect2i(_current_settings.window_position, _current_settings.window_size)
+	var viewport_rect: Rect2i = Rect2i(Vector2i.ZERO, viewport_size)
+	
+	# Return true if window is not completely within viewport or has invalid position
+	return _current_settings.window_position == Vector2i(-1, -1) or not viewport_rect.encloses(window_rect)
+
+## Centers the console window in the main viewport
+func _center_window() -> Vector2i:
+	var viewport_size: Vector2i = Vector2i(get_tree().root.get_visible_rect().size)
+	const MARGIN = 50
+	var centered_pos: Vector2i = (viewport_size - _current_settings.window_size) / 2
+	return Vector2i(maxi(MARGIN, centered_pos.x), maxi(MARGIN, centered_pos.y))
 
 ## Initializes all console components with loaded settings before connecting signals
 ## This prevents unwanted signal emissions during the initialization process
@@ -517,7 +541,7 @@ func _apply_restore_button_alignment(alignment: int) -> void:
 		return
 		
 	# Set position based on alignment using the RestoreButton's enum
-	var restore_alignment = alignment as RestoreButton.Alignment
+	var restore_alignment: RestoreButton.Alignment = alignment as RestoreButton.Alignment
 	_restore_button_component.set_alignment(restore_alignment)
 
 ## Gets a human-readable name for the alignment enum

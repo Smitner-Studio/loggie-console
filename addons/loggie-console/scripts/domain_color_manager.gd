@@ -73,7 +73,7 @@ func get_domain_color(domain: String) -> Color:
 	if not _domain_colors.has(domain):
 		# Assign a new color from the palette with potential variations
 		var palette_index: int = _color_index % DOMAIN_COLOR_PALETTE.size()
-		var cycle_count: int = _color_index / DOMAIN_COLOR_PALETTE.size()  # Integer division is intended
+		var cycle_count: int = _color_index / DOMAIN_COLOR_PALETTE.size() 
 		
 		var base_color: Color = DOMAIN_COLOR_PALETTE[palette_index]
 		var color: Color = _get_color_variation(base_color, cycle_count)
@@ -110,7 +110,7 @@ func get_all_domain_color_infos() -> Array[DomainColorInfo]:
 
 ## Get diagnostic information about color usage and cycles
 func get_color_usage_info() -> ColorUsageInfo:
-	var current_cycle: int = _color_index / DOMAIN_COLOR_PALETTE.size()  # Integer division intended
+	var current_cycle: int = _color_index / DOMAIN_COLOR_PALETTE.size()
 	var remaining_in_cycle: int = DOMAIN_COLOR_PALETTE.size() - (_color_index % DOMAIN_COLOR_PALETTE.size())
 	
 	return ColorUsageInfo.new(
