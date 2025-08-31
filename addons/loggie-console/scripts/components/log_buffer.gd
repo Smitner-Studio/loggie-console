@@ -129,7 +129,7 @@ func _reapply_filters() -> void:
 	_filtered_messages.clear()
 	
 	for msg in _all_messages:
-		if msg and _message_passes_filters(msg, _current_filters):
+		if msg != null and _message_passes_filters(msg, _current_filters):
 			_filtered_messages.append(msg)
 	
 	_rebuild_display()

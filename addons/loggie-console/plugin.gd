@@ -1,7 +1,7 @@
 @tool
 class_name LoggieConsoleEditorPlugin extends EditorPlugin
 
-const AUTOLOAD_NAME = &"LoggieConsole"
+const AUTOLOAD_NAME = &"LoggieConsoleAutoload"
 
 func _enter_tree():
 	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/loggie-console/scenes/console.tscn")

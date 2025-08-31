@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-08-31
+
+### Added
+- Plugin system with automatic autoload setup (LoggieConsole singleton)
+- Automatic plugin installation through Godot's plugin system
+
+### Changed
+- Removed @tool directive from component scripts for better runtime performance
+- Simplified installation process - now uses Godot's plugin system
+
+### Fixed
+- Fixed null message exception in log buffer filtering (`log_buffer.gd:132`)
+- Improved null-safety in `_reapply_filters()` method
+
 ## [1.0.0] - 2025-08-31
 
 ### Added
@@ -31,5 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Requires Loggie 2.x logging framework
 - Compatible with Godot 4.4+
 
-[Unreleased]: https://github.com/Smitner-Studio/loggie-console/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Smitner-Studio/loggie-console/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/Smitner-Studio/loggie-console/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Smitner-Studio/loggie-console/releases/tag/v1.0.0
