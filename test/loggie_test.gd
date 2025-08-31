@@ -1,7 +1,12 @@
-extends Node2D
+extends Node
 
 ## Test script for generating various Loggie log messages
 ## Tests different domains, log levels, message types, and content formats
+
+@export var start_button: Button
+@export var single_button: Button
+@export var error_button: Button
+@export var clear_button: Button
 
 # Domain constants
 const DOMAIN_DEFAULT: StringName = &""
@@ -46,6 +51,11 @@ func _ready() -> void:
 	
 	# Create some initial domains in Loggie
 	_setup_loggie_domains()
+	
+	start_button.pressed.connect(_on_start_logs_pressed)
+	single_button.pressed.connect(_on_single_test_pressed)
+	error_button.pressed.connect(_on_error_test_pressed)
+	clear_button.pressed.connect(_on_clear_pressed)
 	
 	Loggie.msg("=== Loggie Console Test Scene Started ===").domain(DOMAIN_TEST_RUNNER).info()
 	Loggie.msg("Use the buttons to generate different types of log messages").domain(DOMAIN_TEST_RUNNER).notice()

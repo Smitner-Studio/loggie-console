@@ -2,12 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccuynnx2ahosa" path="res://test/loggie_test.gd" id="1_8h4mv"]
 
-[node name="LoggieTest" type="Node2D"]
-script = ExtResource("1_8h4mv")
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+[node name="VBox" type="VBoxContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -20,41 +15,43 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="UI/VBoxContainer"]
+[node name="Label" type="Label" parent="."]
 layout_mode = 2
 text = "Loggie Console Test Scene"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="UI/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="StartLogsButton" type="Button" parent="UI/VBoxContainer"]
+[node name="StartLogsButton" type="Button" parent="."]
 layout_mode = 2
 text = "Start Continuous Logging"
 
-[node name="SingleTestButton" type="Button" parent="UI/VBoxContainer"]
+[node name="SingleTestButton" type="Button" parent="."]
 layout_mode = 2
 text = "Single Test Burst"
 
-[node name="ErrorTestButton" type="Button" parent="UI/VBoxContainer"]
+[node name="ErrorTestButton" type="Button" parent="."]
 layout_mode = 2
 text = "Generate Errors"
 
-[node name="ClearButton" type="Button" parent="UI/VBoxContainer"]
+[node name="ClearButton" type="Button" parent="."]
 layout_mode = 2
 text = "Stop All Logging"
 
-[node name="HSeparator2" type="HSeparator" parent="UI/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2
 
-[node name="InstructionLabel" type="Label" parent="UI/VBoxContainer"]
+[node name="InstructionLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Open Loggie Console to see output
 Use minimize/restore features
 Test filtering by domain and level"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="UI/VBoxContainer/StartLogsButton" to="." method="_on_start_logs_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/SingleTestButton" to="." method="_on_single_test_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/ErrorTestButton" to="." method="_on_error_test_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/ClearButton" to="." method="_on_clear_pressed"]
+[node name="LoggieTestRunner" type="Node" parent="." node_paths=PackedStringArray("start_button", "single_button", "error_button", "clear_button")]
+script = ExtResource("1_8h4mv")
+start_button = NodePath("../StartLogsButton")
+single_button = NodePath("../SingleTestButton")
+error_button = NodePath("../ErrorTestButton")
+clear_button = NodePath("../ClearButton")
