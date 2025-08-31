@@ -10,6 +10,8 @@ An interactive debug console for Godot 4.4. Built on top of [Loggie](https://git
 - **Persistent settings**: Window position, filters, and preferences saved across sessions
 - **Flexible display options**: Run as standalone window or embedded in your game
 
+![capture.PNG](assets/capture.PNG)
+
 ## Install
 
 1. Install [Loggie 2.x](https://github.com/Shiva-Shadowsong/loggie).
@@ -39,5 +41,3 @@ The Loggie dependency is not included in this repository and must be installed s
 
 The project includes a test scene that demonstrates the console functionality. Run `res://test/loggie_test.tscn` to see an interactive demo with buttons to generate different types of log messages, test continuous logging, and demonstrate filtering, domain organization, and search capabilities.
 
-## Example
-![capture.PNG](assets/capture.PNG)
