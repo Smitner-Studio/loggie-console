@@ -46,4 +46,4 @@ preprocessing/terminal/debug_msgs_print_stack_trace=true
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.180392, 0.211765, 0.160784, 1)
+environment/defaults/default_clear_color=Color(0.111924, 0.134395, 0.0978703, 1)

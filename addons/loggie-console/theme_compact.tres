@@ -1,22 +1,23 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c1lnnysnspc6v"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://c1lnnysnspc6v"]
 
+[ext_resource type="StyleBox" uid="uid://o26lyb0ndlad" path="res://addons/loggie-console/assets/outer_panel_button.tres" id="1_8q2fi"]
 [ext_resource type="StyleBox" uid="uid://dolgdjpxlvt8f" path="res://addons/loggie-console/assets/inner_panel_recess.tres" id="1_nubd1"]
 [ext_resource type="Texture2D" uid="uid://bhps6csrl6lef" path="res://addons/loggie-console/assets/close.png" id="1_rapoa"]
-[ext_resource type="StyleBox" uid="uid://bpkqcbx15ejak" path="res://addons/loggie-console/assets/outer_panel.tres" id="2_rapoa"]
+[ext_resource type="Texture2D" uid="uid://b3pan6rg2sptl" path="res://addons/loggie-console/assets/NinePatchWindowOuter_Focused.png" id="2_ufh5s"]
 [ext_resource type="StyleBox" uid="uid://cfafk3ybc15uo" path="res://addons/loggie-console/assets/outer_window_panel.tres" id="3_f200k"]
 [ext_resource type="StyleBox" uid="uid://b7k8yo7jfhpue" path="res://addons/loggie-console/assets/inner_panel.tres" id="3_p21dw"]
+[ext_resource type="Texture2D" uid="uid://dfiplsrfqjm3s" path="res://addons/loggie-console/assets/checkbox/checked.png" id="4_8q2fi"]
+[ext_resource type="Texture2D" uid="uid://brp4nmuj61cck" path="res://addons/loggie-console/assets/checkbox/unchecked.png" id="5_6mi2l"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
-content_margin_left = 3.0
-content_margin_top = 1.0
-content_margin_right = 3.0
-content_margin_bottom = 1.0
-bg_color = Color(0.25, 0.25, 0.25, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.4, 0.4, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_td07o"]
+texture = ExtResource("2_ufh5s")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 36, 36)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox_normal"]
 bg_color = Color(0.15, 0.15, 0.15, 1)
@@ -54,23 +55,31 @@ multichannel_signed_distance_field = true
 
 [resource]
 Button/colors/font_color = Color(0.9, 0.9, 0.9, 1)
-Button/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+Button/colors/font_disabled_color = Color(0.176015, 0.200681, 0.154407, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
 Button/font_sizes/font_size = 11
-Button/styles/disabled = SubResource("StyleBoxFlat_button_normal")
-Button/styles/hover = ExtResource("2_rapoa")
-Button/styles/normal = ExtResource("2_rapoa")
+Button/styles/disabled = ExtResource("1_8q2fi")
+Button/styles/focus = SubResource("StyleBoxTexture_td07o")
+Button/styles/hover = ExtResource("1_8q2fi")
+Button/styles/normal = ExtResource("1_8q2fi")
 Button/styles/pressed = ExtResource("1_nubd1")
 CheckBox/colors/font_color = Color(0.9, 0.9, 0.9, 1)
 CheckBox/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
 CheckBox/colors/font_hover_color = Color(1, 1, 1, 1)
 CheckBox/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+CheckBox/constants/check_v_offset = 2
+CheckBox/constants/h_separation = 0
+CheckBox/constants/icon_max_width = 0
 CheckBox/font_sizes/font_size = 11
+CheckBox/icons/checked = ExtResource("4_8q2fi")
+CheckBox/icons/checked_disabled = ExtResource("4_8q2fi")
+CheckBox/icons/unchecked = ExtResource("5_6mi2l")
+CheckBox/icons/unchecked_disabled = ExtResource("5_6mi2l")
 CheckBox/styles/disabled = SubResource("StyleBoxFlat_checkbox_normal")
-CheckBox/styles/hover_pressed = ExtResource("2_rapoa")
-CheckBox/styles/normal = ExtResource("2_rapoa")
-CheckBox/styles/pressed = ExtResource("2_rapoa")
+CheckBox/styles/hover_pressed = ExtResource("1_8q2fi")
+CheckBox/styles/normal = ExtResource("1_8q2fi")
+CheckBox/styles/pressed = ExtResource("1_8q2fi")
 HBoxContainer/constants/separation = 2
 LineEdit/colors/caret_color = Color(1, 1, 1, 1)
 LineEdit/colors/clear_button_color = Color(0, 0, 0, 1)
@@ -100,8 +109,8 @@ MenuButton/colors/font_hover_color = Color(1, 1, 1, 1)
 MenuButton/colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
 MenuButton/font_sizes/font_size = 11
 MenuButton/styles/hover = ExtResource("1_nubd1")
-MenuButton/styles/normal = ExtResource("2_rapoa")
-MenuButton/styles/pressed = ExtResource("2_rapoa")
+MenuButton/styles/normal = ExtResource("1_8q2fi")
+MenuButton/styles/pressed = ExtResource("1_8q2fi")
 OptionButton/colors/font_color = Color(0.9, 0.9, 0.9, 1)
 OptionButton/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
 OptionButton/colors/font_hover_color = Color(1, 1, 1, 1)
@@ -118,8 +127,8 @@ PopupMenu/colors/font_separator_color = Color(0.5, 0.5, 0.5, 1)
 PopupMenu/font_sizes/font_size = 11
 PopupMenu/styles/hover = ExtResource("1_nubd1")
 PopupMenu/styles/normal = ExtResource("1_nubd1")
-PopupMenu/styles/panel = ExtResource("2_rapoa")
-PopupPanel/styles/panel = ExtResource("2_rapoa")
+PopupMenu/styles/panel = ExtResource("1_8q2fi")
+PopupPanel/styles/panel = ExtResource("1_8q2fi")
 RichTextLabel/colors/default_color = Color(0.9, 0.9, 0.9, 1)
 RichTextLabel/colors/selection_color = Color(0.4, 0.6, 0.8, 0.4)
 RichTextLabel/font_sizes/bold_font_size = 10
