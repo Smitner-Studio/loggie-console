@@ -8,6 +8,9 @@ class_name LoggieConsoleSettings extends Resource
 ## exits and loads on startup to restore the user's previous console configuration.
 
 const LoggieConsoleFilterState = preload("res://addons/loggie-console/resources/loggie_console_filter_state.gd")
+const LoggieConsoleColorSettings = preload("res://addons/loggie-console/resources/loggie_console_color_settings.gd")
+const LoggieConsoleConstants = preload("res://addons/loggie-console/scripts/loggie_console_constants.gd")
+const LoggieEnums = preload("res://addons/loggie/tools/loggie_enums.gd")
 
 # Configuration constants
 const MIN_WINDOW_WIDTH: int = 400
@@ -21,6 +24,9 @@ const WINDOW_MIN_MARGIN: int = 10
 
 ## Filter state for log message display (domains, levels, search terms)
 @export var filter_state: LoggieConsoleFilterState
+
+## Color settings for domain color management
+@export var color_settings: LoggieConsoleColorSettings
 
 ## Currently enabled domain names for filtering
 @export var enabled_domains: Array[String] = []
@@ -47,7 +53,7 @@ const WINDOW_MIN_MARGIN: int = 10
 @export var was_embedded_subwindows: bool = false
 
 ## Current log level filter (stored as int for persistence)
-@export var log_level: int = LoggieEnums.LogLevel.DEBUG
+@export var log_level: int = 4  # LoggieEnums.LogLevel.DEBUG
 
 ## Whether to auto-scroll to newest messages
 @export var scroll_follow_enabled: bool = true
@@ -81,6 +87,8 @@ const WINDOW_MIN_MARGIN: int = 10
 func _init() -> void:
 	if not filter_state:
 		filter_state = LoggieConsoleFilterState.new()
+	if not color_settings:
+		color_settings = LoggieConsoleColorSettings.new()
 
 ## Validates and sanitizes all data after loading from disk
 ## Ensures all fields have valid values even if the saved file was corrupted
@@ -89,6 +97,11 @@ func validate() -> void:
 	if not filter_state:
 		filter_state = LoggieConsoleFilterState.new()
 	filter_state.validate()
+	
+	# Ensure color settings exist and are valid
+	if not color_settings:
+		color_settings = LoggieConsoleColorSettings.new()
+	color_settings.validate()
 	
 	# Ensure domain arrays exist
 	if enabled_domains == null:

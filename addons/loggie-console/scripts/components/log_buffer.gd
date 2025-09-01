@@ -5,6 +5,7 @@ class_name LogBuffer extends RichTextLabel
 
 const LoggieConsoleSettings = preload("res://addons/loggie-console/resources/loggie_console_settings.gd")
 const DomainColorManager = preload("res://addons/loggie-console/scripts/domain_color_manager.gd")
+const LoggieEnums = preload("res://addons/loggie/tools/loggie_enums.gd")
 
 # Signals
 signal filter_changed(visible_count: int, total_count: int)
@@ -43,7 +44,7 @@ class LogMessage:
 ## Filter state for retroactive filtering
 class FilterState:
 	var enabled_domains: Array[String] = []
-	var min_log_level: LoggieEnums.LogLevel = LoggieEnums.LogLevel.DEBUG
+	var min_log_level: LoggieEnums.LogLevel
 	var text_search: String = ""
 	var show_stack_only: bool = false
 	

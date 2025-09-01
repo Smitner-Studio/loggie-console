@@ -17,8 +17,8 @@ config/icon="uid://cpeedtbwgi4eu"
 
 [autoload]
 
-Console="res://addons/loggie-console/scenes/console.tscn"
 Loggie="*res://addons/loggie/loggie.gd"
+LoggieConsoleAutoload="*res://addons/loggie-console/scenes/console.tscn"
 
 [debug]
 
@@ -34,13 +34,20 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/loggie/plugin.cfg")
+enabled=PackedStringArray("res://addons/loggie-console/plugin.cfg", "res://addons/loggie/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://c1lnnysnspc6v"
 
 [loggie]
 
 preprocessing/terminal/output_errors_also_to_console=false
 preprocessing/terminal/output_warnings_also_to_console=false
-preprocessing/terminal/debug_msgs_print_stack_trace=true
+
+[loggie_console]
+
+colors/color_palette=Array[Color]([Color(0.976471, 0.14902, 0.447059, 1), Color(0.65098, 0.886275, 0.180392, 1), Color(0.901961, 0.858824, 0.454902, 1), Color(0.4, 0.85098, 0.937255, 1), Color(0.682353, 0.505882, 1, 1), Color(0.992157, 0.592157, 0.121569, 1), Color(0.972549, 0.972549, 0.94902, 1), Color(0.458824, 0.443137, 0.368627, 1), Color(0.286275, 0.282353, 0.243137, 1), Color(0.152941, 0.156863, 0.133333, 1), Color(1, 0.380392, 0.533333, 1), Color(0.470588, 0.862745, 0.909804, 1), Color(0.670588, 0.615686, 0.94902, 1), Color(1, 0.847059, 0.4, 1), Color(1, 0.596078, 0.403922, 1), Color(0.662745, 0.862745, 0.462745, 1), Color(0.988235, 0.596078, 0.403922, 1), Color(1, 0.427451, 0.494118, 1), Color(0.576471, 0.572549, 0.576471, 1), Color(0.882353, 0.937255, 1, 1)])
 
 [rendering]
 

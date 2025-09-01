@@ -17,6 +17,28 @@ class_name LoggieConsole extends Window
 const LoggieConsoleChannel = preload("res://addons/loggie-console/scripts/loggie_console_channel.gd")
 const ConsoleSettingsManager = preload("res://addons/loggie-console/scripts/managers/console_settings_manager.gd")
 const LoggieConsoleSettings = preload("res://addons/loggie-console/resources/loggie_console_settings.gd")
+const LoggieConsoleColorSettings = preload("res://addons/loggie-console/resources/loggie_console_color_settings.gd")
+
+# Base font sizes for different UI elements (from theme_compact.tres)
+const BASE_FONT_SIZES: Dictionary = {
+	"Button/font_size": 11,
+	"CheckBox/font_size": 11,
+	"LineEdit/font_size": 12,
+	"MenuButton/font_size": 11,
+	"OptionButton/font_size": 11,
+	"PopupMenu/font_size": 11,
+	"RichTextLabel/bold_font_size": 10,
+	"RichTextLabel/bold_italics_font_size": 10,
+	"RichTextLabel/italics_font_size": 10,
+	"RichTextLabel/mono_font_size": 9,
+	"RichTextLabel/normal_font_size": 10,
+	"Window/title_font_size": 16
+}
+
+# Window positioning constants
+const WINDOW_CENTER_MARGIN: int = 50
+
+const LoggieConsoleConstants = preload("res://addons/loggie-console/scripts/loggie_console_constants.gd")
 const RestoreButtonScene := preload("res://addons/loggie-console/scenes/restore_button.tscn")
 const DomainColorManager = preload("res://addons/loggie-console/scripts/domain_color_manager.gd")
 
@@ -72,6 +94,9 @@ func _ready() -> void:
 	# Initialize persistence system FIRST
 	_settings_manager = ConsoleSettingsManager.new()
 	_current_settings = _settings_manager.load_settings()
+	
+	# Load shared color settings from plugin
+	_load_shared_color_settings()
 	
 	_restore_button_component = RestoreButtonScene.instantiate()
 	_restore_button_component.restore_requested.connect(_on_restore_requested)
@@ -303,9 +328,8 @@ func _is_outside_viewport() -> bool:
 ## Centers the console window in the main viewport
 func _center_window() -> Vector2i:
 	var viewport_size: Vector2i = Vector2i(get_tree().root.get_visible_rect().size)
-	const MARGIN = 50
 	var centered_pos: Vector2i = (viewport_size - _current_settings.window_size) / 2
-	return Vector2i(maxi(MARGIN, centered_pos.x), maxi(MARGIN, centered_pos.y))
+	return Vector2i(maxi(WINDOW_CENTER_MARGIN, centered_pos.x), maxi(WINDOW_CENTER_MARGIN, centered_pos.y))
 
 ## Initializes all console components with loaded settings before connecting signals
 ## This prevents unwanted signal emissions during the initialization process
@@ -313,8 +337,9 @@ func _initialize_components() -> void:
 	# Initialize base filter state
 	_filter_state = LogBuffer.FilterState.new()
 	
-	# Create domain color manager
+	# Create domain color manager with settings
 	_domain_color_manager = DomainColorManager.new()
+	_domain_color_manager.initialize(_current_settings.color_settings)
 	
 	# Pass color manager to components that need it
 	buffer.set_color_manager(_domain_color_manager)
@@ -504,20 +529,7 @@ func _apply_text_size_to_theme(multiplier: float) -> void:
 		return
 	
 	# Define base font sizes (from theme_compact.tres)
-	var base_font_sizes: Dictionary = {
-		"Button/font_size": 11,
-		"CheckBox/font_size": 11,
-		"LineEdit/font_size": 12,
-		"MenuButton/font_size": 11,
-		"OptionButton/font_size": 11,
-		"PopupMenu/font_size": 11,
-		"RichTextLabel/bold_font_size": 10,
-		"RichTextLabel/bold_italics_font_size": 10,
-		"RichTextLabel/italics_font_size": 10,
-		"RichTextLabel/mono_font_size": 9,
-		"RichTextLabel/normal_font_size": 10,
-		"Window/title_font_size": 16
-	}
+	var base_font_sizes: Dictionary = BASE_FONT_SIZES
 	
 	# Apply multiplier to each font size
 	for font_path: String in base_font_sizes:
@@ -559,5 +571,25 @@ func _get_alignment_name(alignment: RestoreButton.Alignment) -> String:
 			return "Bottom Right"
 		_:
 			return "Unknown"
+
+## Load shared color settings from project settings
+func _load_shared_color_settings() -> void:
+	if ProjectSettings.has_setting("loggie_console/colors/theme_name"):
+		# Load from project settings
+		var color_settings: LoggieConsoleColorSettings = LoggieConsoleColorSettings.new()
+		var theme_name: String = ProjectSettings.get_setting("loggie_console/colors/theme_name", "GruvBox Dark")
+		
+		# Apply the theme (this sets the correct palette automatically)
+		color_settings.apply_theme(theme_name)
+		
+		# Load other settings
+		color_settings.enable_color_variations = ProjectSettings.get_setting("loggie_console/colors/enable_color_variations", true)
+		color_settings.variation_brightness_factor = ProjectSettings.get_setting("loggie_console/colors/variation_brightness_factor", LoggieConsoleColorSettings.DEFAULT_BRIGHTNESS_FACTOR)
+		color_settings.variation_saturation_factor = ProjectSettings.get_setting("loggie_console/colors/variation_saturation_factor", LoggieConsoleColorSettings.DEFAULT_SATURATION_FACTOR)
+		
+		_current_settings.color_settings = color_settings
+		Loggie.msg("Loaded color theme '%s' from project settings" % theme_name).domain(LoggieConsoleConstants.DOMAIN).info()
+	else:
+		Loggie.msg("No project color settings found, using defaults").domain(LoggieConsoleConstants.DOMAIN).info()
 
 	
