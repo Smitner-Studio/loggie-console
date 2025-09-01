@@ -7,12 +7,15 @@ class_name LoggieConsoleFilterState extends Resource
 ## with Godot's Resource system while maintaining compatibility with LogBuffer.FilterState.
 ## This enables console filter settings to persist between application sessions.
 
+const LoggieEnums = preload("res://addons/loggie/tools/loggie_enums.gd")
+const LoggieConsoleConstants = preload("res://addons/loggie-console/scripts/loggie_console_constants.gd")
+
 
 ## List of domain names that are currently enabled for display
 @export var enabled_domains: Array[String] = []
 
-## Minimum log level to display (stored as int for persistence compatibility)
-@export var min_log_level: int = LoggieEnums.LogLevel.DEBUG
+## Minimum log level to display (stored as int for persistence compatibility)  
+@export var min_log_level: int = 4  # LoggieEnums.LogLevel.DEBUG
 
 ## Text search filter - only messages containing this text will be shown
 @export var text_search: String = ""

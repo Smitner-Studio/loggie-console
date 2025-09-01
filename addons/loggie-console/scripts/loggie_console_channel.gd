@@ -4,6 +4,9 @@ class_name LoggieConsoleChannel extends LoggieMsgChannel
 ## This channel captures all message metadata (level, type, domain, channels, stack info)
 ## without requiring string parsing
 
+const LoggieEnums = preload("res://addons/loggie/tools/loggie_enums.gd")
+const LoggieConsoleConstants = preload("res://addons/loggie-console/scripts/loggie_console_constants.gd")
+
 
 # Reference to the console window that will display messages
 var _console_window: LoggieConsole

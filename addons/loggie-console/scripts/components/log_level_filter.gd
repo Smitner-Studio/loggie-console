@@ -4,6 +4,7 @@ class_name LogLevelFilter extends OptionButton
 ## Manages log level selection and syncs with Loggie settings
 
 const LoggieConsoleSettings = preload("res://addons/loggie-console/resources/loggie_console_settings.gd")
+const LoggieEnums = preload("res://addons/loggie/tools/loggie_enums.gd")
 
 # Signals
 signal level_changed(new_level: LoggieEnums.LogLevel)
