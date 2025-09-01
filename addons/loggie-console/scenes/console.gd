@@ -13,11 +13,7 @@
 ## and discovered domains.
 class_name LoggieConsole extends Window
 
-# Constants
-const LoggieConsoleChannel = preload("res://addons/loggie-console/scripts/loggie_console_channel.gd")
-const ConsoleSettingsManager = preload("res://addons/loggie-console/scripts/managers/console_settings_manager.gd")
-const LoggieConsoleSettings = preload("res://addons/loggie-console/resources/loggie_console_settings.gd")
-const LoggieConsoleColorSettings = preload("res://addons/loggie-console/resources/loggie_console_color_settings.gd")
+# Using class_name globals directly instead of const preloads to avoid name conflicts
 
 # Base font sizes for different UI elements (from theme_compact.tres)
 const BASE_FONT_SIZES: Dictionary = {
@@ -38,9 +34,9 @@ const BASE_FONT_SIZES: Dictionary = {
 # Window positioning constants
 const WINDOW_CENTER_MARGIN: int = 50
 
-const LoggieConsoleConstants = preload("res://addons/loggie-console/scripts/loggie_console_constants.gd")
+# Using class_name globals
 const RestoreButtonScene := preload("res://addons/loggie-console/scenes/restore_button.tscn")
-const DomainColorManager = preload("res://addons/loggie-console/scripts/domain_color_manager.gd")
+# Using class_name globals
 
 
 # UI Constants

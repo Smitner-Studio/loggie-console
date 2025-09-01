@@ -6,7 +6,7 @@ extends Control
 ## Provides a user-friendly interface within the Godot editor for customizing
 ## domain color palettes, themes, and color variation settings.
 
-const LoggieConsoleColorSettings = preload("res://addons/loggie-console/resources/loggie_console_color_settings.gd")
+# Using class_name globals directly instead of const preloads to avoid name conflicts
 
 # UI Size constants
 const TITLE_FONT_SIZE: int = 18
@@ -19,16 +19,13 @@ signal settings_changed(settings: LoggieConsoleColorSettings)
 
 var _settings: LoggieConsoleColorSettings
 var _color_containers: Array[ColorRect] = []
-var _custom_color_containers: Array[HBoxContainer] = []
 
 var _theme_label: Label
 var _reset_button: Button
 var _variations_checkbox: CheckBox
 var _brightness_spinbox: SpinBox
 var _saturation_spinbox: SpinBox
-var _custom_colors_checkbox: CheckBox
 var _palette_container: VBoxContainer
-var _custom_colors_container: VBoxContainer
 
 func _ready() -> void:
 	_create_interface()
@@ -63,9 +60,7 @@ func _create_interface() -> void:
 	var variations_section: Control = _create_variations_section()
 	main_vbox.add_child(variations_section)
 	
-	# Custom colors section
-	var custom_section: Control = _create_custom_colors_section()
-	main_vbox.add_child(custom_section)
+	# Custom colors section removed
 	
 	# Palette preview section
 	var palette_section: Control = _create_palette_section()
@@ -141,28 +136,7 @@ func _create_variations_section() -> Control:
 	return section
 
 ## Create custom colors section
-func _create_custom_colors_section() -> Control:
-	var section: VBoxContainer = VBoxContainer.new()
-	
-	var header: Label = Label.new()
-	header.text = "Custom Colors"
-	header.add_theme_font_size_override("font_size", HEADER_FONT_SIZE)
-	section.add_child(header)
-	
-	_custom_colors_checkbox = CheckBox.new()
-	_custom_colors_checkbox.text = "Use custom colors in addition to theme palette"
-	_custom_colors_checkbox.toggled.connect(_on_custom_colors_toggled)
-	section.add_child(_custom_colors_checkbox)
-	
-	_custom_colors_container = VBoxContainer.new()
-	section.add_child(_custom_colors_container)
-	
-	var add_button: Button = Button.new()
-	add_button.text = "Add Custom Color"
-	add_button.pressed.connect(_on_add_custom_color)
-	section.add_child(add_button)
-	
-	return section
+# Custom colors functionality removed
 
 ## Create palette preview section
 func _create_palette_section() -> Control:
@@ -182,8 +156,7 @@ func _create_palette_section() -> Control:
 func _is_interface_ready() -> bool:
 	return (_theme_label != null and _variations_checkbox != null and 
 			_brightness_spinbox != null and _saturation_spinbox != null and
-			_custom_colors_checkbox != null and _palette_container != null and
-			_custom_colors_container != null)
+			_palette_container != null)
 
 ## Refresh the interface with current settings
 func _refresh_interface() -> void:
@@ -194,10 +167,8 @@ func _refresh_interface() -> void:
 	_variations_checkbox.button_pressed = _settings.enable_color_variations
 	_brightness_spinbox.value = _settings.variation_brightness_factor
 	_saturation_spinbox.value = _settings.variation_saturation_factor
-	_custom_colors_checkbox.button_pressed = _settings.use_custom_colors
 	
 	_refresh_palette_preview()
-	_refresh_custom_colors()
 
 ## Refresh the palette preview
 func _refresh_palette_preview() -> void:
@@ -223,37 +194,9 @@ func _refresh_palette_preview() -> void:
 		grid.add_child(color_rect)
 		_color_containers.append(color_rect)
 
-## Refresh custom colors section
-func _refresh_custom_colors() -> void:
-	# Clear existing custom color controls
-	for child in _custom_colors_container.get_children():
-		child.queue_free()
-	_custom_color_containers.clear()
-	
-	if not _settings:
-		return
-	
-	for i: int in range(_settings.custom_colors.size()):
-		_add_custom_color_control(i)
+# Custom colors functionality removed
 
-## Add a custom color control at the specified index
-func _add_custom_color_control(index: int) -> void:
-	var hbox: HBoxContainer = HBoxContainer.new()
-	_custom_colors_container.add_child(hbox)
-	
-	var color_picker: ColorPicker = ColorPicker.new()
-	color_picker.custom_minimum_size = COLOR_PICKER_SIZE
-	if index < _settings.custom_colors.size():
-		color_picker.color = _settings.custom_colors[index]
-	color_picker.color_changed.connect(_on_custom_color_changed.bind(index))
-	hbox.add_child(color_picker)
-	
-	var remove_button: Button = Button.new()
-	remove_button.text = "Remove"
-	remove_button.pressed.connect(_on_remove_custom_color.bind(index))
-	hbox.add_child(remove_button)
-	
-	_custom_color_containers.append(hbox)
+# Custom color control functionality removed
 
 ## Signal handlers
 func _on_reset_pressed() -> void:
@@ -277,29 +220,13 @@ func _on_saturation_changed(value: float) -> void:
 		_settings.variation_saturation_factor = value
 		_emit_settings_changed()
 
-func _on_custom_colors_toggled(enabled: bool) -> void:
-	if _settings:
-		_settings.use_custom_colors = enabled
-		_refresh_palette_preview()
-		_emit_settings_changed()
+# Custom colors toggle removed
 
-func _on_add_custom_color() -> void:
-	if _settings and _settings.add_custom_color(Color.WHITE):
-		_refresh_custom_colors()
-		_refresh_palette_preview()
-		_emit_settings_changed()
+# Add custom color functionality removed
 
-func _on_remove_custom_color(index: int) -> void:
-	if _settings and _settings.remove_custom_color(index):
-		_refresh_custom_colors()
-		_refresh_palette_preview()
-		_emit_settings_changed()
+# Remove custom color functionality removed
 
-func _on_custom_color_changed(index: int, color: Color) -> void:
-	if _settings and index < _settings.custom_colors.size():
-		_settings.custom_colors[index] = color
-		_refresh_palette_preview()
-		_emit_settings_changed()
+# Custom color change functionality removed
 
 func _emit_settings_changed() -> void:
 	settings_changed.emit(_settings)

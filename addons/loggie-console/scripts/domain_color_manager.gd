@@ -3,7 +3,7 @@ class_name DomainColorManager extends RefCounted
 ## Centralized domain color management for LoggieConsole
 ## Provides consistent color mapping across all console components
 
-const LoggieConsoleColorSettings = preload("res://addons/loggie-console/resources/loggie_console_color_settings.gd")
+# Using class_name globals directly instead of const preloads to avoid name conflicts
 
 ## Domain color mapping information
 class DomainColorInfo:
@@ -66,7 +66,7 @@ func get_domain_color(domain: String) -> Color:
 		
 		# Assign a new color from the palette with potential variations
 		var palette_index: int = _color_index % palette.size()
-		var cycle_count: int = _color_index / palette.size() 
+		var cycle_count: int = int(_color_index / palette.size())
 		
 		var base_color: Color = palette[palette_index]
 		var color: Color = _get_color_variation(base_color, cycle_count)
@@ -113,7 +113,7 @@ func get_color_usage_info() -> ColorUsageInfo:
 	if palette_size == 0:
 		return ColorUsageInfo.new(0, 0, 0, 0, 0, false)
 	
-	var current_cycle: int = _color_index / palette_size
+	var current_cycle: int = int(_color_index / palette_size)
 	var remaining_in_cycle: int = palette_size - (_color_index % palette_size)
 	
 	return ColorUsageInfo.new(
