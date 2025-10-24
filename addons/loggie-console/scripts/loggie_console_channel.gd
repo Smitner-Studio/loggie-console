@@ -41,26 +41,46 @@ func send(msg: LoggieMsg, msg_type: LoggieEnums.MsgType) -> void:
 	var preprocessed_text = msg.last_preprocess_result
 	
 	# Determine log level from the message content patterns or message type
-	var log_level = _determine_log_level(msg, msg_type, preprocessed_text)
+	var log_level = _determine_log_level(msg, msg_type)
 	
 	# Send complete message data to console
 	_console_window.receive_log_message(msg, preprocessed_text, msg_type, log_level)
 
-## Determine the log level based on message type and content
-func _determine_log_level(_msg: LoggieMsg, msg_type: LoggieEnums.MsgType, content: String) -> LoggieEnums.LogLevel:
-	# Use message type to infer log level
-	match msg_type:
-		LoggieEnums.MsgType.ERROR:
-			return LoggieEnums.LogLevel.ERROR
-		LoggieEnums.MsgType.WARNING:
-			return LoggieEnums.LogLevel.WARN
-		LoggieEnums.MsgType.DEBUG:
-			return LoggieEnums.LogLevel.DEBUG
-		LoggieEnums.MsgType.STANDARD:
-			# For standard messages, check content patterns to determine level
-			if content.contains("[NOTICE]"):
+## Determines and returns the [enum LoggieEnums.LogLevel] of a [LoggieMsg] that was sent to this channel.
+func _determine_log_level(msg: LoggieMsg, msg_type: LoggieEnums.MsgType) -> LoggieEnums.LogLevel:
+	# Loggie 3.0 added a property to [LoggieMsg] that directly stores the log_level as an integer.
+	# Check if that property exists and if so, directly convert the integer to the enum and return it.
+	if "last_outputted_at_log_level" in msg:
+		var log_level_int : int = msg.get("last_outputted_at_log_level")
+
+		if log_level_int == -1: # Message was never outputted yet (Shouldn't be possible, but just in case default to INFO??)
+			return LoggieEnums.LogLevel.INFO
+		else:
+			return (log_level_int as LoggieEnums.LogLevel)
+
+	# Since it didn't exist, the user must be running a version of Loggie < 3.0.
+	return _determine_log_level_in_old_loggie_version(msg, msg_type)
+
+
+## Internal method used by [method _determine_log_level].
+## Determines and returns the log level of a message by looking at its msg_type and its content.
+## This is a legacy fallback for users that are running a version of Loggie < 3.0.
+func _determine_log_level_in_old_loggie_version(msg: LoggieMsg, msg_type: LoggieEnums.MsgType) -> LoggieEnums.LogLevel:
+	match int(msg_type):
+		0:  # Previously known as `MsgType.STANDARD`.
+			# Old Loggie didn't differentiate between INFO and NOTICE when it comes to MsgType.
+			# Do what we can to determine which one of those it is:
+			# Check if the appearance of the message contains a pattern idicating it's using the "notice" format.
+			var notice_pattern = Loggie.settings.format_notice_msg.format({"msg": ""})
+			if msg.last_preprocess_result.contains(notice_pattern):
 				return LoggieEnums.LogLevel.NOTICE
 			else:
 				return LoggieEnums.LogLevel.INFO
+		1: # Previously and currently known as `MsgType.ERROR`.
+			return LoggieEnums.LogLevel.ERROR
+		2: # Previously known as `MsgType.WARNING`.
+			return LoggieEnums.LogLevel.WARN
+		3: # Previously and currentlyknown as `MsgType.DEBUG`.
+			return LoggieEnums.LogLevel.DEBUG
 		_:
 			return LoggieEnums.LogLevel.INFO
